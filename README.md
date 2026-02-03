@@ -34,6 +34,9 @@ From this directory:
 
 # Copy into mobius-os backend
 ./inject_env.sh mobius-os/backend
+
+# Copy into mobius-user
+./inject_env.sh mobius-user
 ```
 
 Then run the app from **that module’s root** (e.g. `cd ../mobius-chat && ./mchatc`). The app will load its `.env` as usual.
@@ -68,6 +71,7 @@ You can still keep a `.env` in each repo and run from that repo’s root. mobius
 - **mobius-os:** `POSTGRES_*_LOCAL` or `POSTGRES_*_CLOUD`, `DATABASE_MODE`, `GCP_*`, `FLASK_*`. Use `.env` in `mobius-os/backend/`.
 - **mobius-rag:** `DATABASE_URL`, `GCS_BUCKET`, `VERTEX_*`, `GOOGLE_APPLICATION_CREDENTIALS`. See mobius-rag/.env.example.
 - **mobius-dbt:** `POSTGRES_*` (RAG read), `CHAT_DATABASE_URL` (Chat write), `BQ_*`, `VERTEX_*`. See mobius-dbt/.env.example.
+- **mobius-user:** `USER_DATABASE_URL`, `JWT_SECRET`. Shared by mobius-os and mobius-chat for auth. See mobius-user/.env.example.
 
 Many vars (e.g. `VERTEX_PROJECT_ID`, `GOOGLE_APPLICATION_CREDENTIALS`) are shared; one `.env` in mobius-config can supply them for all.
 

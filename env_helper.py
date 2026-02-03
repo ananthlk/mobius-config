@@ -48,14 +48,19 @@ def load_env(module_root: Path) -> None:
         from dotenv import load_dotenv
     except ImportError:
         return
-    # 1) Module .env — wins (override=True)
+    # 1) Module .env — wins (override=True), but preserve QUEUE_TYPE/REDIS_URL if already set (e.g. by mchatc) for live streaming
     env_file = module_root / ".env"
     if env_file.exists():
+        preserve = {k: os.environ.get(k) for k in ("QUEUE_TYPE", "REDIS_URL") if os.environ.get(k)}
         load_dotenv(env_file, override=True)
+        for k, v in preserve.items():
+            if v is not None:
+                os.environ[k] = v
         logger.info(
-            "[env_helper] loaded module .env: path=%s VERTEX_DEPLOYED_INDEX_ID=%r",
+            "[env_helper] loaded module .env: path=%s VERTEX_DEPLOYED_INDEX_ID=%r QUEUE_TYPE=%r",
             env_file,
             os.environ.get("VERTEX_DEPLOYED_INDEX_ID"),
+            os.environ.get("QUEUE_TYPE"),
         )
     # 2) Global mobius-config/.env — fill in only what is not set (override=False)
     global_dir = module_root.parent / "mobius-config"

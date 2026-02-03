@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copy this repo's .env (or .env.example) into a target module directory.
 # Usage: ./inject_env.sh <target>
-#   target: mobius-chat | mobius-rag | mobius-dbt | mobius-os/backend
+#   target: mobius-chat | mobius-rag | mobius-dbt | mobius-os/backend | mobius-user
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
