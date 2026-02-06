@@ -28,9 +28,14 @@ if [[ ! -d "$MODULE_DIR" ]]; then
 fi
 
 if [[ -f "$SCRIPT_DIR/.env" ]]; then
-  set -a
-  source "$SCRIPT_DIR/.env"
-  set +a
+  # Safe .env loader (no shell expansion).
+  # Avoids corrupting values that contain '$@' (e.g. passwords ending with '$').
+  while IFS= read -r _line || [[ -n "$_line" ]]; do
+    [[ -z "$_line" || "$_line" =~ ^[[:space:]]*# ]] && continue
+    if [[ "$_line" =~ ^([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+      export "${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
+    fi
+  done < "$SCRIPT_DIR/.env"
 fi
 
 cd "$MODULE_DIR"
