@@ -97,6 +97,8 @@ All resources should follow: `mobius-{resource}-{env}` pattern. Isolation is ach
 | `VERTEX_LOCATION` | Yes | `us-central1` | `us-central1` | `us-central1` |
 | `JWT_SECRET` | Yes | (Secret Manager: `jwt-secret`) | (Secret Manager: `jwt-secret`) | (Secret Manager: `jwt-secret`) |
 | `MOBIUS_OS_AUTH_URL` | No | `https://mobius-os-backend-xxx.run.app` | `https://mobius-os-backend-xxx.run.app` | `https://mobius-os-backend-xxx.run.app` |
+| `API_BASE_URL` | No | `http://localhost:8000` | Chat Cloud Run HTTPS URL | Chat Cloud Run HTTPS URL |
+| `MOBIUS_CHAT_URL` | No | `http://localhost:8000` (same as `API_BASE_URL`; used by landing/scripts) | Chat Cloud Run HTTPS URL | Chat Cloud Run HTTPS URL |
 | `RAG_APP_API_BASE` | No | `https://mobius-rag-xxx.run.app` | `https://mobius-rag-xxx.run.app` | `https://mobius-rag-xxx.run.app` |
 
 ---
